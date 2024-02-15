@@ -1,6 +1,7 @@
 <?php
     session_start();
-    require "database.php";
+    require "functions.php";
+
 
     $conn = getPDO();
     $email = $_POST['email'];
@@ -8,20 +9,10 @@
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $sql = "SELECT *
-                FROM users
-                WHERE email = :email";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-            $stmt->execute();
-            if($stmt->rowCount() == 0){
-                $hash = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO users (email, password)
-                        VALUES (:email, :password)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-                $stmt->bindValue(':password', $hash, PDO::PARAM_STR);
-                $stmt->execute();
+            $users = checkEmail($email, $conn);
+            var_dump($users);
+            if(empty($users)){
+                newUser($email, $password, $conn);
                 $_SESSION['success'] = "Регистрация успешна!";
                 header('Location:../page_login.php');
             }else{

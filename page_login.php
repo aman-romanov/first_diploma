@@ -38,15 +38,15 @@
                 <div class="alert alert-success">
                     <?=$_SESSION['success'];?>
                 </div>
-                <?php session_unset();?>
+                <?php unset($_SESSION['success']);?>
             <?php endif; ?>
             <?php if(!empty($_SESSION['error'])):?>
                 <div class="alert alert-danger">
                     <?=$_SESSION['error'];?>
                 </div>
-                <?php session_unset();?>
+                <?php unset($_SESSION['error']);?>
             <?php endif; ?>
-            <form action="includes/login.php" method="post">
+            <form action="includes/login_handler.php" method="post">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>
                     <input name="email" type="email" id="username" class="form-control" placeholder="Эл. адрес" value="">

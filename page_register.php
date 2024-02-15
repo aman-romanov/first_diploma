@@ -62,10 +62,10 @@
                                     <?php if(!empty($_SESSION['error'])): ?>
                                         <div class="alert alert-danger text-dark" role="alert">
                                             <strong>Уведомление!</strong> <?=$_SESSION['error']?>
-                                            <?php session_unset(); ?>
+                                            <?php unset($_SESSION['success']); ?>
                                         </div>
                                     <?php endif; ?>
-                                    <form id="js-login" novalidate="" action="includes/registration.php" method="post">
+                                    <form id="js-login" novalidate="" action="includes/register_handler.php" method="post">
                                         <div class="form-group">
                                             <label class="form-label" for="emailverify">Email</label>
                                             <input name="email" type="email" id="emailverify" class="form-control" placeholder="Эл. адрес" required>
