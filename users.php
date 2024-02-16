@@ -51,6 +51,18 @@
                 </div>
                 <?php unset($_SESSION['success']);?>
             <?php endif;?>
+            <?php if(!empty($_SESSION['error'])):?>
+                <div class="alert alert-danger">
+                    <?=$_SESSION['error'];?>
+                </div>
+                <?php unset($_SESSION['error']);?>
+            <?php endif;?>
+            <?php if(!empty($_SESSION['danger'])):?>
+                <div class="alert alert-danger">
+                    <?=$_SESSION['danger'];?>
+                </div>
+                <?php unset($_SESSION['danger']);?>
+            <?php endif;?>
             <div class="subheader">
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-users'></i> Список пользователей

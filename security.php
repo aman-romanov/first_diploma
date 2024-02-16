@@ -7,7 +7,15 @@
 
     $conn = getPDO();
     $_SESSION['id'] = $_GET['id'];
+    $authorized_user = $_SESSION['user'];
     $user = getUserByID($_SESSION['id'],$conn);
+    if($user[0]['id'] == $authorized_user[0]['id'] || $authorized_user[0]['role'] == 'admin'){
+        
+    }else{
+        $_SESSION['danger'] = 'У вас недостаточно прав для этого действия';
+        header('Location:users.php');
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,8 +52,19 @@
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-lock'></i> Безопасность
             </h1>
-
         </div>
+        <?php if(!empty($_SESSION['success'])):?>
+            <div class="alert alert-success">
+                <?=$_SESSION['success'];?>
+            </div>
+            <?php unset($_SESSION['success']);?>
+        <?php endif;?>
+        <?php if(!empty($_SESSION['error'])):?>
+            <div class="alert alert-danger">
+                <?=$_SESSION['error'];?>
+            </div>
+            <?php unset($_SESSION['error']);?>
+        <?php endif;?>
         <form action="includes/security_handler.php" method="post">
             <div class="row">
                 <div class="col-xl-6">

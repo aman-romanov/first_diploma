@@ -186,5 +186,33 @@
         return $stmt->execute();
     }
 
-    function change
+    function changeSecureData($user, $data, $conn){
+        $hash = password_hash($data['password'], PASSWORD_DEFAULT);
+
+        if($user[0]['email'] == $data['email'] && $user[0]['id'] == $data['id']){
+            $sql = "UPDATE users
+                    SET email = :email,
+                    password = :password
+                    WHERE id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':id', $data['id'], PDO::PARAM_INT);
+            $stmt->bindValue(':email', $data['email'], PDO::PARAM_STR);
+            $stmt->bindValue(':password', $hash, PDO::PARAM_STR);
+            return $stmt->execute();
+        }
+        $is_email_taken = checkEmail($data['email'], $conn);
+        if($is_email_taken==0){
+            $sql = "UPDATE users
+                    SET email = :email,
+                    password = :password
+                    WHERE id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':id', $data['id'], PDO::PARAM_INT);
+            $stmt->bindValue(':email', $data['email'], PDO::PARAM_STR);
+            $stmt->bindValue(':password', $hash, PDO::PARAM_STR);
+            return $stmt->execute();
+        }else{
+            return false;
+        }
+    }
 ?>
