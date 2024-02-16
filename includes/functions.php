@@ -121,13 +121,11 @@
         $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
         $filename = $base . "." . $pathinfo['extension'];
         $destination = __DIR__ . '/../img/demo/avatars/' . $filename;
-
         $i = 1;
         while(file_exists($destination)){
             $filename = $base . "($i)." . $pathinfo['extension'];
             $destination = __DIR__ . '/../img/demo/avatars/' . $filename;
             $i++;
-            return $filename;
         }
         move_uploaded_file($tmp_name, $destination);
         return $filename;
@@ -142,6 +140,23 @@
         $stmt->bindValue(':image', $filename, PDO::PARAM_STR);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         return $stmt->execute();
+    }
+    
+    function setStatus($status){
+        switch($status){
+            case 'Онлайн':
+                echo "success";
+                break;
+            case 'Отошел':
+                echo 'warning';
+                break;
+            case 'Не беспокоить':
+                echo 'danger';
+                break;
+            default:
+                echo "success";
+                break;
         }
 
+    }
 ?>

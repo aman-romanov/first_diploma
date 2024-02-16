@@ -80,7 +80,7 @@
                         <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="<?=$user['tag'];?>">
                             <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                                 <div class="d-flex flex-row align-items-center">
-                                    <span class="status status-success mr-3">
+                                    <span class="status status-<?php setStatus($user['status']);?> mr-3">
                                         <span class="rounded-circle profile-image d-block " style="background-image:url('img/demo/avatars/<?=$user['img'];?>'); background-size: cover;"></span>
                                     </span>
                                     <div class="info-card-text flex-1">
