@@ -1,8 +1,19 @@
+<?php
+    session_start();
+    require('includes/functions.php');
+    if(!is_logged_in()){
+        header('Location:page_login.php');
+    }
+
+    $conn = getPDO();
+    $_SESSION['id'] = $_GET['id'];
+    $user = getUserByID($_SESSION['id'],$conn);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Безопаность</title>
+    <title>Безопасность</title>
     <meta name="description" content="Chartist.html">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
@@ -14,19 +25,16 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-primary-gradient">
-        <a class="navbar-brand d-flex align-items-center fw-500" href="users.html"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png"> Учебный проект</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand d-flex align-items-center fw-500" href="users.php"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png"> Учебный проект</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="users.php">Главная <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="page_login.html">Войти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Выйти</a>
+                    <a class="nav-link" href="includes/logout_handler.php">Выйти</a>
                 </li>
             </ul>
         </div>
@@ -38,7 +46,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form action="includes/security_handler.php" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -50,19 +58,19 @@
                                 <!-- email -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Email</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="john@example.com">
+                                    <input name="email" type="text" id="simpleinput" class="form-control" value="<?=htmlspecialchars($user[0]['email']) ?? "";?>">
                                 </div>
 
                                 <!-- password -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Пароль</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input name="password" type="password" id="simpleinput" class="form-control">
                                 </div>
 
                                 <!-- password confirmation-->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Подтверждение пароля</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input name="verify_password" type="password" id="simpleinput" class="form-control">
                                 </div>
 
 

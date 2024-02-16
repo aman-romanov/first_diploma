@@ -159,4 +159,32 @@
         }
 
     }
+
+    function getUserByID($id, $conn){
+        $sql = "SELECT *
+                FROM users
+                WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue('id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function editDataByID($conn, $data){
+        $sql = "UPDATE users
+                SET name = :name,
+                job_title = :job_title,
+                phone = :phone,
+                address = :address
+                WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $data['id'], PDO::PARAM_INT);
+        $stmt->bindValue(':name', $data['name'], PDO::PARAM_STR);
+        $stmt->bindValue(':job_title', $data['job_title'], PDO::PARAM_STR);
+        $stmt->bindValue(':phone', $data['phone'], PDO::PARAM_STR);
+        $stmt->bindValue(':address', $data['address'], PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    function change
 ?>
