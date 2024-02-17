@@ -31,6 +31,10 @@
         }
     }
 
+    function logout(){
+        unset($_SESSION['user']);
+    }
+
     function checkEmail($email,$conn){
         $sql = "SELECT *
                 FROM users
@@ -239,5 +243,13 @@
         }else{
             return false;
         }
+    }
+
+    function deleteUser($id, $conn){
+        $sql = "DELETE FROM users
+                WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue('id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 ?>

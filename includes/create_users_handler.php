@@ -3,6 +3,7 @@
     require 'functions.php';
 
     $conn = getPDO();
+
     if($_SERVER['REQUEST_METHOD'] !== 'POST'){
         $_SESSION['error'] = 'Заполните поля';
         header('Location:../create_user.php');

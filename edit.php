@@ -2,13 +2,18 @@
     session_start();
     require 'includes/functions.php';
 
-    if(!is_logged_in()){
-        header('Location:page_login.php');
-    }
-
     $_SESSION['id'] = $_GET['id'];
     $conn = getPDO();
-    $user = getUserByID($_SESSION['id'], $conn); 
+    $user = getUserByID($_SESSION['id'], $conn);
+
+    if(!is_logged_in()){
+        header('Location:page_login.php');
+    } 
+
+    if(!is_admin($user, $authorized_user)){
+        $_SESSION['danger'] = 'У вас недостаточно прав';
+        header('Location:users.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

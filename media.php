@@ -13,8 +13,8 @@
     $authorized_user = $_SESSION['user'];
 
     if(!is_admin($user, $authorized_user)){
-        $_SESSION['error'] = 'У вас недостаточно прав';
-        header('Location:../users.php');
+        $_SESSION['danger'] = 'У вас недостаточно прав';
+        header('Location:users.php');
     }
 ?>
 <!DOCTYPE html>

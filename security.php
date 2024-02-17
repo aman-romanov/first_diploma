@@ -9,6 +9,10 @@
     $_SESSION['id'] = $_GET['id'];
     $authorized_user = $_SESSION['user'];
     $user = getUserByID($_SESSION['id'],$conn);
+    if(!is_admin($user, $authorized_user)){
+        $_SESSION['danger'] = 'У вас недостаточно прав';
+        header('Location:users.php');
+    }
     if($user[0]['id'] == $authorized_user[0]['id'] || $authorized_user[0]['role'] == 'admin'){
         
     }else{

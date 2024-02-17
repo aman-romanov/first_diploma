@@ -1,6 +1,17 @@
 <?php
     session_start();
     require('includes/functions.php');
+
+    $authorized_user = $_SESSION['user'];
+
+    if($authorized_user[0]['role'] !== 'admin'){
+        $_SESSION['danger'] = 'У вас недостаточно прав';
+        header('Location:users.php');
+    }
+
+    if(!is_logged_in()){
+        header('Location:page_login.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

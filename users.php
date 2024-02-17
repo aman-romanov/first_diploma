@@ -118,7 +118,7 @@
                                                     <i class="fa fa-camera"></i>
                                                     Загрузить аватар
                                                 </a>
-                                                <a href="#" class="dropdown-item" onclick="return confirm('are you sure?');">
+                                                <a href="includes/delete_user_handler.php?id=<?=$user['id'];?>" class="dropdown-item" onclick="return confirm('Вы хотите удалить профиль <?=$user['name'];?>?');">
                                                     <i class="fa fa-window-close"></i>
                                                     Удалить
                                                 </a>
@@ -166,8 +166,8 @@
             </div>
             <div>
                 <ul class="list-table m-0">
-                    <li><a href="intel_introduction.html" class="text-secondary fw-700">Home</a></li>
-                    <li class="pl-3"><a href="info_app_licensing.html" class="text-secondary fw-700">About</a></li>
+                    <li><a href="#" class="text-secondary fw-700">Home</a></li>
+                    <li class="pl-3"><a href="#" class="text-secondary fw-700">About</a></li>
                 </ul>
             </div>
         </footer>
