@@ -13,7 +13,7 @@
         ];
         if(editDataByID($conn, $data)){
             $_SESSION['success'] = "Данные сохранены";
-            header('Location:../users.php');
+            header('Location:../page_profile.php?id=' . $data["id"] .'');
         }
     }
 ?>

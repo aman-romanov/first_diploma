@@ -40,12 +40,24 @@
                 </ul>
             </div>
         </nav>
+        <?php if(!empty($_SESSION['success'])):?>
+            <div class="alert alert-success">
+                <?=$_SESSION['success'];?>
+            </div>
+            <?php unset($_SESSION['success']);?>
+        <?php endif;?>
         <main id="js-page-content" role="main" class="page-content mt-3">
             <div class="subheader">
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-user'></i> <?= htmlspecialchars($user[0]['name']) ?? "";?>
                 </h1>
             </div>
+            <?php if(!empty($_SESSION['success'])):?>
+                <div class="alert alert-success">
+                    <?=$_SESSION['success'];?>
+                </div>
+                <?php unset($_SESSION['success']);?>
+            <?php endif;?>
             <div class="row">
               <div class="col-lg-6 col-xl-6 m-auto">
                     <!-- profile summary -->

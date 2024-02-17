@@ -17,6 +17,14 @@
 
     }
 
+    function is_admin($user, $authorized_user){
+        if($user[0]['id']== $authorized_user[0]['id'] || $authorized_user[0]['role'] == 'admin'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     function is_logged_in(){
         if(isset($_SESSION['user'])){
             return true;
@@ -141,6 +149,13 @@
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         return $stmt->execute();
     }
+
+    function deleteImage($conn, $user,){
+        $destination = __DIR__ . '/../img/demo/avatars/' . $user[0]['img'];
+        if(file_exists($destination)){
+            unlink(__DIR__ . '/../img/demo/avatars/' . $user[0]['img']);
+        }
+    }
     
     function setStatus($status){
         switch($status){
@@ -158,6 +173,16 @@
                 break;
         }
 
+    }
+
+    function updateUserStatus($user, $status, $conn){
+        $sql = "UPDATE users
+                SET status = :status
+                WHERE id =:id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue('id', $user[0]['id'], PDO::PARAM_INT);
+        $stmt->bindValue('status', $status, PDO::PARAM_STR);
+        $stmt->execute();
     }
 
     function getUserByID($id, $conn){

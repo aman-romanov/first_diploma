@@ -30,7 +30,7 @@
         }
         if(changeSecureData($user, $data, $conn)){
             $_SESSION['success'] = 'Данные сохранены';
-            header('Location:../users.php');
+            header('Location:../page_profile.php?id=' . $data["id"] .'');
         }else{
             $_SESSION['error'] = 'Почтовый адрес занят';
             header('Location:../security.php?id=' . $data["id"] .''); 
